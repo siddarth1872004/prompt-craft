@@ -1,0 +1,6 @@
+# Exclude frontend assets from repository language statistics 
+# to force GitHub to detect the repository primarily as Python.
+static/* linguist-vendored
+*.html linguist-vendored
+*.css linguist-vendored
+*.js linguist-vendored
