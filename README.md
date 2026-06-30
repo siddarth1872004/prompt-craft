@@ -1,6 +1,6 @@
 # PromptCraft - Interactive Prompt Engineering Studio
 
-PromptCraft is a state-of-the-art prompt engineering workspace designed to translate natural language objectives into highly optimized, production-ready LLM prompt configurations. The application utilizes a Backend-for-Frontend (BFF) architecture built with a Python FastAPI server and a Vanilla HTML5, CSS3, and JavaScript frontend. It integrates the official Google GenAI SDK for Gemini models to synthesize, evaluate, execute, and export custom prompts.
+PromptCraft is a state-of-the-art prompt engineering workspace designed to translate natural language objectives into highly optimized, production-ready LLM prompt configurations. The application is built using Streamlit and integrates the official Google GenAI SDK for Gemini models to synthesize, evaluate, execute, and export custom prompts.
 
 ---
 
@@ -27,19 +27,6 @@ Uses clear boundaries (such as Markdown headers or XML tags) to partition instru
 
 ### 4. Injection Guarding (Security Shielding)
 Instructs the model to treat dynamic variables strictly as raw untrusted data, preventing attackers from injecting malicious instructions disguised as inputs to override system rules.
-
----
-
-## Technology Stack and Security Design
-
-### Backend (Backend-for-Frontend Pattern)
-The Python FastAPI server manages credentials and handles communication with the Google Gemini API. This BFF pattern keeps sensitive API keys off the client-side (no storage in localStorage or cookies) and prevents direct execution calls from client browsers.
-
-### Frontend (Vanilla CSS & DOM Sanitization)
-The user interface is built from the ground up using custom CSS (implementing dark-theme glassmorphism, responsive grids, active tab sliders, and glowing buttons) without external utility styling frameworks. All dynamically rendered content uses safe DOM properties (such as textContent and innerText) to fully protect against Cross-Site Scripting (XSS) attacks.
-
-### Binding Strategy
-To prevent unauthorized external network access during testing and development, the uvicorn process binds strictly to localhost (127.0.0.1) by default.
 
 ---
 
@@ -72,11 +59,8 @@ GEMINI_API_KEY=your_gemini_api_key_here
 *Note: You can also enter the API key directly in the sidebar password field in the web interface.*
 
 ### 4. Running the App
-Start the FastAPI server:
+Start the Streamlit application:
 ```bash
-python server.py
+streamlit run app.py
 ```
-Open your browser and navigate to:
-```
-http://127.0.0.1:8000
-```
+Open your browser and navigate to the address shown in the terminal (typically `http://localhost:8501`).
