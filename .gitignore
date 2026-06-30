@@ -1,0 +1,14 @@
+# Python virtual environment
+venv/
+
+# Environment configurations containing keys
+.env
+
+# Python compilation cache
+__pycache__/
+*.pyc
+
+# Local IDE metadata
+.vscode/
+.idea/
+.DS_Store
