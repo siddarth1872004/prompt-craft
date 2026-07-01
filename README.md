@@ -1,5 +1,13 @@
 # PromptCraft - Interactive Prompt Engineering Studio
 
+<div align="center">
+
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.38-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io)
+[![Gemini](https://img.shields.io/badge/Google_Gemini-genai_SDK-8E75B2?style=for-the-badge&logo=googlegemini&logoColor=white)](https://ai.google.dev)
+
+</div>
+
 PromptCraft is a state-of-the-art prompt engineering workspace designed to translate natural language objectives into highly optimized, production-ready LLM prompt configurations. The application is built using Streamlit and integrates the official Google GenAI SDK for Gemini models to synthesize, evaluate, execute, and export custom prompts.
 
 ---
