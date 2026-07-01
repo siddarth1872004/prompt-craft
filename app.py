@@ -77,15 +77,19 @@ if "playground_output" not in st.session_state:
 # Sidebar settings
 st.sidebar.title("Parameters")
 
+_env_api_key = config.get_api_key()
+
 api_key_input = st.sidebar.text_input(
     "Gemini API Key",
     type="password",
-    value=config.get_api_key(),
+    value="",
+    placeholder="Using GEMINI_API_KEY from environment" if _env_api_key else "Enter your Gemini API Key",
     help="Enter your Gemini API Key or set it as GEMINI_API_KEY environment variable."
 )
 
-# Resolve API Key
-resolved_api_key = api_key_input.strip() if api_key_input.strip() else config.get_api_key()
+# Resolve API Key (never pre-fill the visible field with the real secret,
+# since Streamlit renders the input's value into the page even when masked)
+resolved_api_key = api_key_input.strip() if api_key_input.strip() else _env_api_key
 
 model_name = st.sidebar.selectbox(
     "Model Selection",

@@ -84,7 +84,7 @@ def test_prompt(api_key, model_name, assembled_prompt, system_instruction, tempe
             temperature=temperature,
             top_p=top_p
         )
-        if system_instruction.strip():
+        if system_instruction and system_instruction.strip():
             config.system_instruction = system_instruction.strip()
 
         response = client.models.generate_content(
