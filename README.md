@@ -1,4 +1,4 @@
-# PromptCraft -- Interactive Prompt Engineering & Security Audit Studio
+# PromptCraft -- Interactive Prompt Engineering and Security Audit Studio
 
 PromptCraft is an interactive prompt engineering, optimization, and security audit studio built with **Streamlit** and the **Google Gemini API**. It enables developers to refine raw prompts, automatically inject few-shot examples, audit prompts against security vulnerability heuristics (prompt injection, jailbreaks, data exfiltration), and evaluate multi-model token benchmarks.
 
@@ -8,27 +8,32 @@ PromptCraft is an interactive prompt engineering, optimization, and security aud
 
 ```mermaid
 graph TB
-    subgraph UI_LAYER["Streamlit User Interface (app.py)"]
-        STUDIO[Prompt Workbench & Playground]
-        OPT_VIEW[Optimizer & Few-Shot Generator]
-        AUDIT_VIEW[Security & Injection Auditor]
-        BENCH_VIEW[Token & Latency Benchmark Studio]
+    subgraph UI_LAYER["Streamlit User Interface - app.py"]
+        STUDIO["Prompt Workbench and Playground"]
+        OPT_VIEW["Optimizer and Few-Shot Generator"]
+        AUDIT_VIEW["Security and Injection Auditor"]
+        BENCH_VIEW["Token and Latency Benchmark Studio"]
     end
 
     subgraph CORE_MODULES["Core Engine"]
-        ANALYZER[Prompt Analyzer & Security Inspector]
-        CFG[Config & Environment Loader]
-        TEST_UTIL[Test Suite & Assertions Engine]
+        ANALYZER["Prompt Analyzer and Security Inspector"]
+        CFG["Config and Environment Loader"]
+        TEST_UTIL["Test Suite and Assertions Engine"]
     end
 
-    subgraph GEMINI_CLIENT["Gemini API Integration (client.py)"]
-        GEMINI_NATIVE[Google GenAI / Gemini 2.0 Client]
-        STREAM[Streaming SSE Response Handler]
+    subgraph GEMINI_CLIENT["Gemini API Integration - client.py"]
+        GEMINI_NATIVE["Google GenAI / Gemini 2.0 Client"]
+        STREAM["Streaming SSE Response Handler"]
     end
 
-    STUDIO & OPT_VIEW & AUDIT_VIEW & BENCH_VIEW --> ANALYZER
+    STUDIO --> ANALYZER
+    OPT_VIEW --> ANALYZER
+    AUDIT_VIEW --> ANALYZER
+    BENCH_VIEW --> ANALYZER
+
     ANALYZER --> GEMINI_CLIENT
-    GEMINI_CLIENT --> GEMINI_NATIVE --> STREAM
+    GEMINI_CLIENT --> GEMINI_NATIVE
+    GEMINI_NATIVE --> STREAM
     STREAM --> STUDIO
 
     style UI_LAYER fill:#18181b,stroke:#a1a1aa,color:#fff
@@ -38,7 +43,7 @@ graph TB
 
 ---
 
-## Prompt Optimization & Audit Sequence Diagram
+## Prompt Optimization and Audit Sequence Diagram
 
 ```mermaid
 sequenceDiagram
