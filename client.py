@@ -73,8 +73,52 @@ def generate_prompt_structure_with_gemini(api_key, model_name, objective, person
 
 def test_prompt(api_key, model_name, assembled_prompt, system_instruction, temperature, top_p):
     """
-    Runs the prompt against the Gemini API.
+    Runs the prompt against the Gemini API or Amazon Bedrock if specified.
     """
+    import os
+    if model_name.startswith("bedrock/") or "claude" in model_name or "llama" in model_name:
+        try:
+            import boto3
+            bedrock_model_id = model_name.split("/")[-1] if "/" in model_name else model_name
+            client = boto3.client(
+                service_name="bedrock-runtime",
+                region_name=os.environ.get("AWS_REGION", "us-east-1")
+            )
+            
+            if "claude" in bedrock_model_id:
+                body = {
+                    "anthropic_version": "bedrock-2023-05-31",
+                    "max_tokens": 1024,
+                    "messages": [
+                        {"role": "user", "content": assembled_prompt}
+                    ],
+                    "temperature": temperature,
+                    "top_p": top_p
+                }
+                if system_instruction and system_instruction.strip():
+                    body["system"] = system_instruction.strip()
+            else:
+                body = {
+                    "prompt": f"{system_instruction}\n\n{assembled_prompt}" if system_instruction else assembled_prompt,
+                    "max_gen_len": 512,
+                    "temperature": temperature,
+                    "top_p": top_p
+                }
+                
+            response = client.invoke_model(
+                modelId=bedrock_model_id,
+                body=json.dumps(body)
+            )
+            response_body = json.loads(response.get("body").read().decode("utf-8"))
+            
+            if "claude" in bedrock_model_id:
+                text_parts = [block.get("text", "") for block in response_body.get("content", []) if block.get("type") == "text"]
+                return "\n".join(text_parts)
+            else:
+                return response_body.get("generation", "")
+        except Exception as e:
+            return f"AWS Bedrock Execution Error: {str(e)}"
+
     client = get_gemini_client(api_key)
     if not client:
         raise ValueError("Gemini Client not initialized. Please provide a valid API Key.")
@@ -97,3 +141,4 @@ def test_prompt(api_key, model_name, assembled_prompt, system_instruction, tempe
         return f"Gemini API Error: {api_err.message}"
     except Exception as e:
         return f"Execution Error: {str(e)}"
+
