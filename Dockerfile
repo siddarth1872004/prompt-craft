@@ -15,5 +15,5 @@ COPY . .
 # Step 5: Inform Docker that the application will listen on port 8000
 EXPOSE 8000
 
-# Step 6: Start the FastAPI server using uvicorn when the box runs
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Step 6: Start the Streamlit app when the container runs
+CMD ["streamlit", "run", "app.py", "--server.port", "8000", "--server.address", "0.0.0.0"]
